@@ -4,7 +4,16 @@ import java.util.List;
 
 public class AdminVO {
 	private int orderNo;
+	private int orderId;
 	private int orderAmtSum;
+	public int getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
+
 	private String userId;
 	private String userNm;
 	
