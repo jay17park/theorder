@@ -2,6 +2,7 @@ package application.vo;
 
 public class AdminOrderVO {
 	private int orderNo;	// 주문번호
+	private int orderId;	// 
 	private String userId;	// 사용자ID
 	private String userNm;	// 사용자명
 	private String menuNm;	// 메뉴명
@@ -10,6 +11,18 @@ public class AdminOrderVO {
 	private int orderQty;	// 주문수량
 	private int orderAmt;	// 주문금액(메뉴별)
 	private int orderAmtSum;	// 주문금액합계
+
+	
+	
+	
+	
+	public int getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
 
 	public String getUserId() {
 		return userId;
