@@ -112,19 +112,21 @@
 
 </style>
 	<script language='javascript'>
-		window.setTimeout('window.location.reload(true)', 5000); //5초마다 새로고침
+		window.setTimeout('$("#refresh").submit();', 5000);
 	</script>
 </head>
 <body>
 	
 	<h1><span class="label label-default" style="margin:3%;">주문현황</span></h1>
 	
+	<form id="refresh" action="admin" method="get"></form>
+	
 	<!--Pattern HTML-->
 	<div id="pattern">
 		<ul class="g">
 			<li th:each="order : ${orderList}">
 			<form action="admin" method="post">
-			<input type="text" name="orderNo" th:value="${order.orderNo}" style="display:none"/>
+			<input type="text" name="orderId" th:value="${order.orderId}" style="display:none"/>
 				<button name="orderBtn" class="btn btn-lg btn-default btn-block" type="submit">
 					<strong><p th:text='${"주문번호 : "+order.orderNo}'></p></strong>
 					<p th:text='${order.userNm +"(" +order.userId+") 님"}'></p>

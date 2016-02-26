@@ -53,6 +53,7 @@ public class AdminController {
 				vo = new AdminVO();
 				vo.setOrderAmtSum(orderVo.getOrderAmtSum());
 				vo.setOrderNo(orderVo.getOrderNo());
+				vo.setOrderId(orderVo.getOrderId());
 				vo.setUserId(orderVo.getUserId());
 				vo.setUserNm(orderVo.getUserNm());
 				adminOrderList = new ArrayList<AdminOrderVO>();
@@ -60,18 +61,20 @@ public class AdminController {
 			
 			adminOrderList.add(orderVo);
 		}
-		vo.setAdminOrderList(adminOrderList);
-		orderList.add(vo);
+		if(vo!=null)
+		{
+			vo.setAdminOrderList(adminOrderList);
+			orderList.add(vo);
+		}
 		
 		model.addAttribute("orderList", orderList);
 		return "admin";
 	}
 	
 	@RequestMapping(value="/admin", method = RequestMethod.POST)
-	public String completeOrder(int orderNo,Model model) {
-
-		String regId = adminDAO.selectUser(orderNo);
-		adminDAO.updateVO(orderNo);
+	public String completeOrder(int orderId,Model model) {
+		String regId = adminDAO.selectUser(orderId);
+		adminDAO.updateVO(orderId);
 
 		if(null != regId || !"".equals(regId))
 		{
@@ -98,6 +101,7 @@ public class AdminController {
 				vo = new AdminVO();
 				vo.setOrderAmtSum(orderVo.getOrderAmtSum());
 				vo.setOrderNo(orderVo.getOrderNo());
+				vo.setOrderId(orderVo.getOrderId());
 				vo.setUserId(orderVo.getUserId());
 				vo.setUserNm(orderVo.getUserNm());
 				adminOrderList = new ArrayList<AdminOrderVO>();
@@ -105,8 +109,11 @@ public class AdminController {
 			
 			adminOrderList.add(orderVo);
 		}
-		vo.setAdminOrderList(adminOrderList);
-		orderList.add(vo);
+		if(vo!=null)
+		{
+			vo.setAdminOrderList(adminOrderList);
+			orderList.add(vo);
+		}
 		
 		model.addAttribute("orderList", orderList);
 		return "admin";
