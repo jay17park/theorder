@@ -4,7 +4,7 @@ public class UserVO {
 	private String userId;		//사용자ID
 	private String password;	//패스워드
 	private String userNm;		//사용자명
-	private String userRegId;			//reg ID
+	private String userRegId;	//reg ID
 	private int cnt;			//존재여부(0,1)
 	public UserVO() {
 		
