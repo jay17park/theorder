@@ -27,7 +27,9 @@ public class WatingDAO {
 				     ",ORDER_DT\n" + 
 					 "FROM ORDR\n" +  
 					 "WHERE ORDER_USER_ID = ?\n" + 
-					 "AND CMPL_YN = 'N'";
+					 "AND CMPL_YN = 'N'" + 
+					 "AND ORDER_DT >= CURDATE()"
+					 ;
 
     	return template.query(query, new Object[] {orderUserId}, new BeanPropertyRowMapper(WatingVO.class));
     }
@@ -35,10 +37,10 @@ public class WatingDAO {
     
     
     public List<WatingVO> selectWaitingInfo(WatingVO inWatingVO) {
-        String query = "SELECT\n "
+        String query = "SELECT\n"
 	        		+ "(SELECT COUNT(*) FROM ORDR Z1 WHERE Z1.ORDER_DT < ? AND CMPL_YN='N' AND Z1.ORDER_DT >= CURDATE()) AS ORDER_SNT\n"
 	        		+ ",A1.ORDER_NO\n"
-	        		+ ",(SELECT SUM(Z2.ORDER_QTY) FROM ORDER_MENU_RLT Z2 WHERE A2.ORDER_ID = Z2.ORDER_ID) AS ORDER_QTY_ALL\n"
+	        		+ ",(SELECT SUM(Z2.ORDER_QTY) FROM ORDER_MENU_RLT Z2 INNER JOIN ORDR Z3 ON Z2.ORDER_ID = Z3.ORDER_ID WHERE Z2.ORDER_ID <= ? AND Z3.CMPL_YN = 'N' AND Z3.ORDER_DT >= CURDATE()) AS ORDER_QTY_ALL\n"
 	        		+ ",A2.ORDER_QTY\n"
 	        		+ ",A3.MENU_NM\n"
 	        		+ ",A3.ICE_OPT_USE_YN\n"
@@ -62,7 +64,7 @@ public class WatingDAO {
 	        		+ "ORDER BY A3.SHOW_NO\n"
 	        		;
 
-        return template.query(query, new Object[] {inWatingVO.getOrderDt(), inWatingVO.getOrderId(), inWatingVO.getOrderDt()}, new BeanPropertyRowMapper(WatingVO.class));
+        return template.query(query, new Object[] {inWatingVO.getOrderDt(), inWatingVO.getOrderId(), inWatingVO.getOrderId(), inWatingVO.getOrderDt()}, new BeanPropertyRowMapper(WatingVO.class));
     }
 
 }
