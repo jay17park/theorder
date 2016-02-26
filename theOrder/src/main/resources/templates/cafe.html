@@ -26,52 +26,79 @@
 
 <!-- Menu Toggle Script -->
 <script>
-	$(document).ready(function() {
 
-		$("#menu-toggle").click(function(e) {
-			e.preventDefault();
-			$("#wrapper").toggleClass("active");
-		});
-	});
+$(document).ready(function () {
+  var trigger = $('.hamburger'),
+      overlay = $('.overlay'),
+     isClosed = false;
+
+    trigger.click(function () {
+      hamburger_cross();      
+    });
+
+    function hamburger_cross() {
+
+      if (isClosed == true) {          
+        overlay.hide();
+        trigger.removeClass('is-open');
+        trigger.addClass('is-closed');
+        isClosed = false;
+      } else {   
+        overlay.show();
+        trigger.removeClass('is-closed');
+        trigger.addClass('is-open');
+        isClosed = true;
+      }
+  }
+  
+  $('[data-toggle="offcanvas"]').click(function () {
+        $('#wrapper').toggleClass('toggled');
+  });  
+});
 </script>
 </head>
 <body>
-	<div id="wrapper" class="active">
-		<!-- Sidebar -->
-		<div id="sidebar-wrapper">
-			<nav id="spy">
-				<ul class="sidebar-nav nav">
-					<li><a href="/cafe"> <span class="fa fa-anchor solo">카페선택</span>
+     <div id="wrapper">
+        <div class="overlay"></div>
+    
+        <!-- Sidebar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                       The Order
+                    </a>
+                </li>
+                	<li><a href="/cafe"> <span class="fa fa-anchor solo"><img src="img/glyphicons-454-kiosk.png"></img> 카페선택</span>
 					</a></li>
-					<li><a href="/selmenu"> <span class="fa fa-anchor solo">음료선택</span>
+					<li><a href="/selmenu"> <span class="fa fa-anchor solo"><img src="img/glyphicons-294-french-press.png"></img> 음료선택</span>
 					</a></li>
 					<li><a href="/waitingStatus"> <span
-							class="fa fa-anchor solo">대기현황</span>
+							class="fa fa-anchor solo"><img src="img/glyphicons-54-alarm.png"></img> 대기현황</span>
 					</a></li>
-					<li><a href="#anch4"> <span class="fa fa-anchor solo">로그아웃</span>
-					</a></li>
-				</ul>
-			</nav>
-		</div>
-		<!-- /#sidebar-wrapper -->
-
-		<!-- Page Content -->
-		<div id="page-content-wrapper">
-			<div class="content-header bg-success">
-				<h1 id="home">
-					<a id="menu-toggle" href="#"
-						class="glyphicon glyphicon-align-justify btn-menu toggle"> <i
-						class="fa fa-bars"></i>
-					</a> 음료선택
-				</h1>
-			</div>
-			<div class="page-content inset bg-danger">
-				<div class="row">
-					<div class="col-lg-12">
-						<!-- container -->
-						<div class="container">
+            </ul>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+        
+        
+        
+        
+        
+        
+        
+        
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+    			<span class="hamb-middle"></span>
+				<span class="hamb-bottom"></span>
+            </button>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
 							<form class="form-cafe" action="cafe.do" method="post">
-								<div style="padding: 10px; background: #f2dede; ">
+								<div style="padding: 10px;  ">
 									<button name="cafe" class="btn btn-lg btn_default btn-block"
 										value="1">
 										<div style="display: none"></div>
@@ -85,7 +112,7 @@
 										</h4>
 									</button>
 								</div>
-								<div style="padding: 10px; background: #f2dede; ">
+								<div style="padding: 10px;  ">
 									<button name="cafe" class="btn btn-lg btn_default btn-block"
 										value="2">
 										<div style="display: none"></div>
@@ -100,7 +127,7 @@
 
 									</button>
 								</div>
-								<div style="padding: 10px;background: #f2dede;">
+								<div style="padding: 10px;">
 									<button name="cafe" class="btn btn-lg btn_default btn-block"
 										value="3">
 										<div style="display: none"></div>
@@ -124,7 +151,6 @@
 							</form>
 						</div>
 					</div>
-				</div>
 			</div>
 		</div>
 	</div>  <!-- wrapper -->
