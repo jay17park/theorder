@@ -150,16 +150,19 @@
         
 	
 <!-- Page Content -->
+		<div class="refreshButton" style="padding-right:20px; margin:5%">
+		  	<input type="image" name="button" align="right" src="img/glyphicons-82-refresh.png" onclick="window.location.reload();"/>
+		</div>
         <div id="page-content-wrapper">
             <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                 <span class="hamb-top"></span>
     			<span class="hamb-middle"></span>
 				<span class="hamb-bottom"></span>
             </button>
+           
             <div class="container" id="waitingDiv">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
-                    
                     		<form class="form-signin" action="waiting.do" method="post">
 							      <div class="row">
 							        <div class="orderNumber" align="middle">
@@ -176,11 +179,9 @@
 									          	<span style="width:300px"><img src="img/glyphicons-500-family.png"/> <b th:text='${waiting[0].orderSntNm+"&nbsp;&nbsp;&nbsp;"}'/>
 												<img src="img/glyphicons-295-coffee-cup.png"/> <b th:text="${waiting[0].orderQtyAll}"/>잔</span>
 									          </p>
-									</div>
-							      
-							      
+								  </div>
 						     </form>
-</div>
+							</div>
 						</div>
 						<!-- /container -->
 					</div>
