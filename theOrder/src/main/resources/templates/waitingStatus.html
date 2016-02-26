@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" href="../../favicon.ico"/>
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css"></link>
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css"></link>
+    
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="js/SelMenu.js"></script>
+	<!--<link rel='stylesheet prefetch' href='http://bradfrost.github.com/this-is-responsive/styles.css'/>  -->
+	<!-- sidebar 참조 css -->
+	<link href="css/simple-sidebar_2.css" rel="stylesheet" />
+
+    <title>대기현황</title>
+
+    <!-- Bootstrap core CSS -->
+    <!-- Custom styles for this template -->
+<!--     <link href="dashboard.css" rel="stylesheet"/> -->
+
+<!--     <script src="js/ie-emulation-modes-warning.js"></script> -->
+
+    <style type="text/css">
+
+.circle {
+	background: #EBC680;
+	border-radius:50%;
+	color: #980000;
+	display:table;
+	height: 200px;
+	font-weight: bold;
+	font-size: 1.2em;
+	width: auto;
+	margin:0 auto;
+}
+.circle span {
+	display:table-cell;
+	vertical-align:middle;
+	height:300px;
+	width:200px;
+	text-align:center;
+	padding: 0 15px;
+}	
+	
+	</style>
+	
+	<script language='javascript'>
+		window.setTimeout('window.location.reload(true)', 60000); //60초마다 새로고침
+	</script>
+
+	<script>
+	$(document).ready(function () {
+		debugger;
+	  var trigger = $('.hamburger'),
+	      overlay = $('.overlay'),
+	     isClosed = false;
+
+	    trigger.click(function () {
+	      hamburger_cross();      
+	    });
+
+	    function hamburger_cross() {
+
+	      if (isClosed == true) {          
+	        overlay.hide();
+	        trigger.removeClass('is-open');
+	        trigger.addClass('is-closed');
+	        isClosed = false;
+	      } else {   
+	        overlay.show();
+	        trigger.removeClass('is-closed');
+	        trigger.addClass('is-open');
+	        isClosed = true;
+	      }
+	  }
+	  
+	  $('[data-toggle="offcanvas"]').click(function () {
+	        $('#wrapper').toggleClass('toggled');
+	  });  
+	  
+	  
+	  
+		var count=0;
+		
+		$(function(){
+		/*	$( "#totalCntBtn" ).click(function(event){
+//		    $( "#pattern" ).click(function(event){
+			  debugger;
+			  if($(event.target).get("Name")=="menuBtn")
+				  $(event.target).find("span")[0].innerHTML++;
+			  else
+				  $(event.target).parent().find("span")[0].innerHTML++;
+			  
+			  count++;
+			  $("#totalCntBtn").text(count + " 잔");
+			  
+		  } );*/
+		  
+		  
+		  
+		  /* 숨김기능로직*/
+		  $("#detailMenuDiv").hide();
+			debugger;
+		  $("#totalCntBtn").click(function(){
+			  debugger;
+		      $("#pattern").slideToggle();
+		      $("#waitingDiv").slideToggle();
+		  });
+		});	  
+	  
+	});
+</script>
+
+</head>
+	<body>
+	
+	
+	
+	
+     <div id="wrapper">
+        <div class="overlay"></div>
+    
+        <!-- Sidebar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                       The Order
+                    </a>
+                </li>
+                	<li><a href="/cafe"> <span class="fa fa-anchor solo"><img src="img/glyphicons-454-kiosk.png"></img> 카페선택</span>
+					</a></li>
+					<li><a href="/selmenu"> <span class="fa fa-anchor solo"><img src="img/glyphicons-294-french-press.png"></img> 음료선택</span>
+					</a></li>
+					<li><a href="/waitingStatus"> <span
+							class="fa fa-anchor solo"><img src="img/glyphicons-54-alarm.png"></img> 대기현황</span>
+					</a></li>
+            </ul>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+        
+        
+	
+<!-- Page Content -->
+        <div id="page-content-wrapper">
+            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+    			<span class="hamb-middle"></span>
+				<span class="hamb-bottom"></span>
+            </button>
+            <div class="container" id="waitingDiv">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                    
+                    		<form class="form-signin" action="waiting.do" method="post">
+							      <div class="row">
+							        <div class="orderNumber" align="middle">
+							          <label for="status"><h1>주문번호</h1></label>
+							        </div>
+							         <div class="orderFloor" align="middle">
+							          <label for="status"><h1><b th:text="${waiting[0].shopNm}"/> No.<b th:text="${waiting[0].orderNo}"/></h1></label>
+							        </div>
+							        
+							        
+							      </div>
+								      <div class="orderCircle" style="margin:10%">
+									          <p class="circle">
+									          	<span style="width:300px"><img src="img/glyphicons-500-family.png"/> <b th:text='${waiting[0].orderSntNm+"&nbsp;&nbsp;&nbsp;"}'/>
+												<img src="img/glyphicons-295-coffee-cup.png"/> <b th:text="${waiting[0].orderQtyAll}"/>잔</span>
+									          </p>
+									</div>
+							      
+							      
+						     </form>
+</div>
+						</div>
+						<!-- /container -->
+					</div>
+				</div>
+				
+				<button id="totalCntBtn" class="btn btn-lg btn-warning btn-block">
+					<b style="font-size:20px; font-weight:bold" th:text="${waiting[0].orderQtyAll}"/> 잔
+				</button>
+		    	<div id="detailMenuDiv" align="middle">
+					<h2 class="sub-header">주문내역</h2>
+						<ul class = "g">
+			        		<li th:each = "order : ${waiting}" >
+			            		<p style="font-size:20px" th:id = 'waiting' th:text='${order.menuNm+"/"}+ ${order.orderQty + "개("}+${order.iceOptNm + ","}+${order.shotOptNm+")"}'/>
+							</li>
+						</ul>
+				</div>
+			</div>
+			
+			
+		    <!-- Bootstrap core JavaScript
+		    ================================================== -->
+		    <!-- Placed at the end of the document so the pages load faster -->
+		    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		    <script src="js/bootstrap.min.js"></script>
+		    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		    <script src="js/ie10-viewport-bug-workaround.js"></script>
+	
+	
+	
+	
+		
+	</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</meta>
+<title>Insert title here</title>
+<link rel="icon" href="../../favicon.ico"></link>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css"></link>
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="css/bootstrap-theme.min.css"></link>
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.js"></script>
+<!-- Custom styles for this template -->
+<link href="css/signin.css" rel="stylesheet"></link>
+</head>
+<script>
+	$(document).ready(function() {
+	    window.HybridApp.getRegistrationId();	//안드로이드 bridge(GCM reg ID 호출)
+	});
+    function tokenCallback(token) {
+		document.getElementById('regId').value=token;
+	}
+</script>
+<body>
+	<div class="container">
+		<form class="form-signin" action="login.do" method="post">
+			<h1 class="form-signin-heading" style="text-align: center">
+				<strong>디오더</strong>
+			</h1>
+			<label for="inputId" class="sr-only">ID</label> <input type="text"
+				name="id" id="inputId" class="form-control"
+				placeholder="아이디를 입력하세요." required="required" autofocus="true"></input>
+			<input type="hidden" id="regId" name="regId" value="regId"></input>
+			<label for="inputPassword" class="sr-only">PW</label> <input
+				type="password" name="pass" id="inputPassword"
+				class="form-control" placeholder="비밀번호를 입력하세요." required="required"></input>
+			<div class="checkbox">
+				<!--           <label> -->
+				<!--             <input type="checkbox" value="remember-me"></input> Remember me -->
+				<!--           </label> -->
+				<!-- <b th:text="${error}">  </b> -->
+			</div>
+			<div style="padding-bottom: 10px; padding-top: 10px;">
+				<button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
+			</div>
+		</form>
+
+	</div>
+	<!-- /container -->
+
+	<script th:inline="javascript">
+			/*<![CDATA[*/
+			var tmp = /*[[${error}]]*/;
+// 			var sessionId = /*[[${session.userId}]]*/;
+			/*]]>*/
+			if(tmp=='Y'){
+				alert("check your information");
+			}
+// 			if(sessionId!=null){
+// 				location.href="cafe.html";
+// 			}
+			
+		</script>
+
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>

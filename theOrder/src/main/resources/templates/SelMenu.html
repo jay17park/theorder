@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</meta>
+
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="js/SelMenu.js"></script>
+<link rel='stylesheet prefetch'
+	  href='http://bradfrost.github.com/this-is-responsive/styles.css' />
+	
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet"/>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+
+<link rel="stylesheet" href="css/bootstrap.min.css"></link>
+<link rel="stylesheet" href="css/bootstrap-theme.min.css"></link>
+<link href="css/simple-sidebar.css" rel="stylesheet" />
+<style class="cp-pen-styles">
+.g {
+	padding: 3%;
+	overflow: hidden;
+}
+
+.g li {
+	float: left;
+	width: 50%;
+	padding: 0.25em;
+}
+
+.g button {
+	display: block;
+}
+
+.g li:nth-child(odd) {
+	clear: left;
+}
+
+@media screen and (min-width: 40em) {
+	.g li {
+		width: 33.3333333333333333%;
+	}
+	.g li:nth-child(3n+1) {
+		clear: left;
+	}
+	.g li:nth-child(odd) {
+		clear: none;
+	}
+}
+
+@media screen and (min-width: 55em) {
+	.g li {
+		width: 25%;
+	}
+	.g li:nth-child(4n+1) {
+		clear: left;
+	}
+	.g li:nth-child(3n+1) {
+		clear: none;
+	}
+}
+
+@media screen and (min-width: 72em) {
+	.g li {
+		width: 20%;
+	}
+	.g li:nth-child(5n+1) {
+		clear: left;
+	}
+	.g li:nth-child(4n+1) {
+		clear: none;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	.g li {
+		width: 16.666666666%;
+	}
+	.g li:nth-child(6n+1) {
+		clear: left;
+	}
+	.g li:nth-child(5n+1) {
+		clear: none;
+	}
+}
+
+.optActive {
+	color : red;
+	font-weight: bold;
+}
+
+.optInactive {
+	color : gray;
+	font-weight: normal;
+}
+
+.inline {
+	display: inline
+}
+
+.right {
+    float: right;
+    margin-right : 20px;
+}
+
+.left {
+	float : left;
+	margin-left : 20px;
+}
+
+.labelFont {
+	font-size : 14px;
+	line-height : 1.428;
+}
+
+</style>
+
+
+	<!-- Menu Toggle Script -->
+	<script>
+		$(document).ready(function() {
+	
+			$("#menu-toggle").click(function(e) {
+				e.preventDefault();
+				$("#wrapper").toggleClass("active");
+			});
+		});
+	</script>
+
+
+</head>
+<body>
+<div id="wrapper" class="active">
+			<!-- Sidebar -->
+			<div id="sidebar-wrapper">
+				<nav id="spy">
+					<ul class="sidebar-nav nav">
+						<li><a href="/cafe"> <span class="fa fa-anchor solo">카페선택</span>
+						</a></li>
+						<li><a href="/selmenu"> <span class="fa fa-anchor solo">음료선택</span>
+						</a></li>
+						<li><a href="/waitingStatus"> <span class="fa fa-anchor solo">대기현황</span>
+						</a></li>
+						<li><a href="#anch4"> <span class="fa fa-anchor solo">로그아웃</span>
+						</a></li>
+					</ul>
+				</nav>
+			</div>
+			<!-- /#sidebar-wrapper -->
+		
+			<!-- Page Content -->
+			<div id="page-content-wrapper">
+				<div class="content-header bg-success">
+					<h1 id="home">
+						<a id="menu-toggle" href="#"
+							class="glyphicon glyphicon-align-justify btn-menu toggle"> <i
+							class="fa fa-bars"></i>
+						</a>
+						음료선택
+					</h1>
+				</div>
+			<div class="page-content inset bg-danger">
+				<div class="row">
+					<div class="col-lg-12">
+						<!-- container -->
+						<div class="container">
+							<!--Pattern HTML-->
+							<div id="pattern">
+								<ul class="g">
+									<li th:each="menu : ${menuList}">
+										<button name="menuBtn" class="btn btn-lg btn-default btn-block">
+											<div style="display: none">
+												<p th:id='${menu.menuId+"ice"}' th:text="${menu.iceOptUseYn}">
+												</p>
+												<p th:id='${menu.menuId+"shot"}' th:text="${menu.shotOptUseYn}">
+												</p>
+												<p th:id='${menu.menuId+"price"}' th:text="${menu.menuAmt}"></p>
+											</div>
+											<p th:id='${menu.menuId+"name"}' th:text="${menu.menuNm}"></p>
+											<span class="badge" th:id="${menu.menuId}">0</span>
+										</button>
+									</li>
+								</ul>
+								<div style="margin:3%">
+									<h3 class="inline"><span class="label label-default">포장여부</span></h3>
+									<div class="inline" style="margin:3%">
+										<input id="togoYn" type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger"/>
+									</div>
+								</div>
+							</div>
+							<div style="margin:3%">
+								<button id="totalCntBtn" class="btn btn-lg btn-warning btn-block">0
+									잔</button>
+								<div id="detailMenuDiv"></div>
+								<form action="order" method="post" id="orderForm" >
+									<button id="orderBtn" class="btn btn-lg btn-primary btn-block" type="submit">0원
+										결제</button>
+									<input type="text" id="jsonData" name="jsonData" style="display : none;" />
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</meta>
+
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel='stylesheet prefetch'
+	  href='http://bradfrost.github.com/this-is-responsive/styles.css' />
+	
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet"/>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+
+<link rel="stylesheet" href="css/bootstrap.min.css"></link>
+<link rel="stylesheet" href="css/bootstrap-theme.min.css"></link>
+<style class="cp-pen-styles">
+.g {
+	padding: 3%;
+	overflow: hidden;
+}
+
+.g li {
+	float: left;
+	width: 50%;
+	padding: 0.25em;
+}
+
+.g button {
+	display: block;
+}
+
+.g li:nth-child(odd) {
+	clear: left;
+}
+
+@media screen and (min-width: 40em) {
+	.g li {
+		width: 33.3333333333333333%;
+	}
+	.g li:nth-child(3n+1) {
+		clear: left;
+	}
+	.g li:nth-child(odd) {
+		clear: none;
+	}
+}
+
+@media screen and (min-width: 55em) {
+	.g li {
+		width: 25%;
+	}
+	.g li:nth-child(4n+1) {
+		clear: left;
+	}
+	.g li:nth-child(3n+1) {
+		clear: none;
+	}
+}
+
+@media screen and (min-width: 72em) {
+	.g li {
+		width: 20%;
+	}
+	.g li:nth-child(5n+1) {
+		clear: left;
+	}
+	.g li:nth-child(4n+1) {
+		clear: none;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	.g li {
+		width: 16.666666666%;
+	}
+	.g li:nth-child(6n+1) {
+		clear: left;
+	}
+	.g li:nth-child(5n+1) {
+		clear: none;
+	}
+}
+
+.optActive {
+	color : red;
+	font-weight: bold;
+}
+
+.optInactive {
+	color : gray;
+	font-weight: normal;
+}
+
+.inline {
+	display: inline
+}
+
+.right {
+    float: right;
+    margin-right : 20px;
+}
+
+.left {
+	float : left;
+	margin-left : 20px;
+}
+
+.labelFont {
+	font-size : 14px;
+	line-height : 1.428;
+}
+
+</style>
+	<script language='javascript'>
+		window.setTimeout('window.location.reload(true)', 5000); //5초마다 새로고침
+	</script>
+</head>
+<body>
+	
+	<h1><span class="label label-default" style="margin:3%;">주문현황</span></h1>
+	
+	<!--Pattern HTML-->
+	<div id="pattern">
+		<ul class="g">
+			<li th:each="order : ${orderList}">
+			<form action="admin" method="post">
+			<input type="text" name="orderNo" th:value="${order.orderNo}" style="display:none"/>
+				<button name="orderBtn" class="btn btn-lg btn-default btn-block" type="submit">
+					<strong><p th:text='${"주문번호 : "+order.orderNo}'></p></strong>
+					<p th:text='${order.userNm +"(" +order.userId+") 님"}'></p>
+					<div>
+						<div th:each="menu : ${order.adminOrderList}">
+							<small><small><span th:text='${menu.menuNm}'></span>
+							<span th:text='${menu.shotOpt}'></span>
+							<span th:text='${menu.iceOpt}'></span>
+							<span th:text='${menu.orderQty + "잔"}'></span></small></small>
+						</div>
+					</div>
+					<br/>
+					<p th:text='${"총 " + order.orderAmtSum + "원"}'></p>
+				</button>
+				</form>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

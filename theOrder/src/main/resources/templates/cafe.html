@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"></meta>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<title>Insert title here</title>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css"></link>
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="css/bootstrap-theme.min.css"></link>
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	history.pushState(null, null, 'cafe.xml');
+	window.addEventListener('popstate', function(event) {
+		history.pushState(null, null, 'cafe.xml');
+	});
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<!-- Custom styles for this template -->
+<link href="css/signin.css" rel="stylesheet"></link>
+<link href="css/simple-sidebar.css" rel="stylesheet" />
+
+<!-- Menu Toggle Script -->
+<script>
+	$(document).ready(function() {
+
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("active");
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="wrapper" class="active">
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper">
+			<nav id="spy">
+				<ul class="sidebar-nav nav">
+					<li><a href="/cafe"> <span class="fa fa-anchor solo">카페선택</span>
+					</a></li>
+					<li><a href="/selmenu"> <span class="fa fa-anchor solo">음료선택</span>
+					</a></li>
+					<li><a href="/waitingStatus"> <span
+							class="fa fa-anchor solo">대기현황</span>
+					</a></li>
+					<li><a href="#anch4"> <span class="fa fa-anchor solo">로그아웃</span>
+					</a></li>
+				</ul>
+			</nav>
+		</div>
+		<!-- /#sidebar-wrapper -->
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="content-header bg-success">
+				<h1 id="home">
+					<a id="menu-toggle" href="#"
+						class="glyphicon glyphicon-align-justify btn-menu toggle"> <i
+						class="fa fa-bars"></i>
+					</a> 음료선택
+				</h1>
+			</div>
+			<div class="page-content inset bg-danger">
+				<div class="row">
+					<div class="col-lg-12">
+						<!-- container -->
+						<div class="container">
+							<form class="form-cafe" action="cafe.do" method="post">
+								<div style="padding: 10px; background: #f2dede; ">
+									<button name="cafe" class="btn btn-lg btn_default btn-block"
+										value="1">
+										<div style="display: none"></div>
+										<h4>
+											<font color="black"><strong>지하1층</strong></font>
+										</h4>
+										<h4>
+											남은 건수 : <font color="red"><b
+												th:text="${shops[0].orderCnt}"> </b></font> 남은잔 수 : <font
+												color="red"><b th:text="${shops[0].totalQty}"> </b></font>
+										</h4>
+									</button>
+								</div>
+								<div style="padding: 10px; background: #f2dede; ">
+									<button name="cafe" class="btn btn-lg btn_default btn-block"
+										value="2">
+										<div style="display: none"></div>
+										<h4>
+											<font color="black"><strong>서관26층</strong></font>
+										</h4>
+										<h4>
+											남은 건수 : <font color="red"><b
+												th:text="${shops[1].orderCnt}"> </b></font> 남은잔 수 : <font
+												color="red"><b th:text="${shops[1].totalQty}"> </b></font>
+										</h4>
+
+									</button>
+								</div>
+								<div style="padding: 10px;background: #f2dede;">
+									<button name="cafe" class="btn btn-lg btn_default btn-block"
+										value="3">
+										<div style="display: none"></div>
+										<h4>
+											<font color="black"><strong>동관27층</strong></font>
+										</h4>
+										<h4>
+											남은 건수 : <font color="red"><b
+												th:text="${shops[2].orderCnt}"> </b></font> 남은잔 수 : <font
+												color="red"><b th:text="${shops[2].totalQty}"> </b></font>
+										</h4>
+
+									</button>
+								</div>
+								<div style="padding: 10px; background: #f2dede;">
+									<h4>
+										<b th:text="${session.userNm}"></b>(<b
+											th:text="${session.userId}"> </b>)님 환영합니다.
+									</h4>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>  <!-- wrapper -->
+</body>
+</html>
