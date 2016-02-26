@@ -1,14 +1,16 @@
 package application.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import application.vo.AdminOrderVO;
-import application.vo.PmtVO;
 import application.vo.UserVO;
 
 @Repository
@@ -18,6 +20,7 @@ public class AdminDAO {
     
     public List<AdminOrderVO> getOrderList(String shopId) {
 		String query ="SELECT	A1.ORDER_NO, "
+					+"A1.ORDER_ID, "
 					+"A4.USER_ID, "
 					+"A4.USER_NM, "
 					+"A3.MENU_NM, "
@@ -51,19 +54,23 @@ public class AdminDAO {
      * @param orderVO
      * @return
      */
-    public int updateVO(int orderNo) {
-    	String query = "UPDATE ORDR SET CMPL_YN = 'Y' WHERE ORDER_NO = ?";
-        return template.update(query, orderNo);
+    public int updateVO(int orderId) {
+    	String query = "UPDATE ORDR SET CMPL_YN = 'Y' WHERE ORDER_ID = ?";
+        return template.update(query, orderId);
     }
     
     public String selectUser(int orderId) {
-        String query = "SELECT	USER_REG_ID\n"
-        			 + "FROM		ORDR A1\n"
-        			 + "INNER JOIN USER A2\n"
-        			 + "ON 		A1.ORDER_USER_ID = A2.USER_ID\n"
-        			 + "WHERE		1=1\n"
-        			 + "AND		A1.ORDER_ID = ?";
-        UserVO vo = (UserVO) template.queryForObject(query, new Object[] {orderId}, new BeanPropertyRowMapper(UserVO.class));
+        String query = "SELECT	A2.USER_REG_ID, A1.ORDER_DT\n"
+        			 + " FROM		ORDR A1\n"
+        			 + " INNER JOIN USER A2\n"
+        			 + " ON 		A1.ORDER_USER_ID = A2.USER_ID\n"
+        			 + " WHERE		1=1\n"
+        			 + " AND		A1.ORDER_ID = ?";
+        
+        System.out.println("query : " + query);
+        System.out.println("order id " + orderId);
+        
+        UserVO vo = (UserVO) template.queryForObject(query, new Object[] {Integer.valueOf(orderId)}, new BeanPropertyRowMapper(UserVO.class));
         return vo.getUserRegId();
     }
 }
